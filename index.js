@@ -5,20 +5,25 @@ var qr_img_container = document.getElementById("qr-img-container");
 generateBtn.addEventListener("click", () => {
   const input = document.querySelector("input").value;
   qr_img_container.innerHTML = "";
-  new QRCode(qr_img_container, {
-    text: input,
-    width: 165,
-    height: 165,
-  });
+
+  if (input === "") {
+    alert("You haven't entered a URL:)");
+  } else {
+    new QRCode(qr_img_container, {
+      text: input,
+      width: 165,
+      height: 165,
+    });
+  }
 });
 
 function downloadImg(src) {
   var link = document.createElement("a");
   link.href = src;
   link.download = "QR Image";
-  document.body.appendChild(link);
+  qr_img_container.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+  qr_img_container.removeChild(link);
 }
 
 saveBtn.addEventListener("click", () => {
@@ -29,7 +34,9 @@ saveBtn.addEventListener("click", () => {
     downloadImg(qrImg.src);
   } else if (qrCanvas) {
     const qrCanvasToPng = qrCanvas.toDataURL("image/png");
-    downloadImg(qrCanvasToPng);
+    if (qrCanvasToPng) {
+      downloadImg(qrCanvasToPng);
+    }
   } else {
     alert("Generate a QR image first to save!");
   }
