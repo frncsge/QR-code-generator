@@ -70,6 +70,9 @@ input:focus {
 #generate:hover {
   background-color: #5ba4d2;
 }
+em {
+  color: rgb(165, 16, 16);
+}
 footer {
   text-align: center;
 }
